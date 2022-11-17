@@ -1,0 +1,33 @@
+function cmap = cmap_red2(n,start, stop)
+%UNTITLED3 Summary of this function goes here
+%   Detailed explanation goes here
+c1 = [0, 0, 0]; % black
+c2 = [1, 0, 0]; % red
+c3 = [1, 1, 1]; % white
+gray_scale = [linspace(c1(1),c3(1),n)' ,...
+    linspace(c1(2),c3(2),n)',...
+    linspace(c1(3),c3(3),n)'];
+gray_start = gray_scale(start, :);
+gray_end = gray_scale(stop, :);
+%% making red colormap
+mid = (n)/2;
+red1 = [linspace(c1(1),c2(1),mid)' ,...
+    linspace(c1(2),c2(2),mid)',...
+    linspace(c1(3),c2(3),mid)'];
+
+red2 = [linspace(c2(1),c3(1),mid+1)', ...
+    linspace(c2(2),c3(2),mid+1)', ...
+    linspace(c2(3),c3(3),mid+1)'];
+red_map = [red1 ; red2];
+c4 = red_map((stop+start)/2, :);
+
+%% making new colormap
+cmap1 = [linspace(gray_start(1),c4(1),(stop-start)/2)' ,...
+    linspace(gray_start(2),c4(2),(stop-start)/2)',...
+    linspace(gray_start(3),c4(3),(stop-start)/2)'];
+
+cmap2 = [linspace(c4(1),gray_end(1),(stop-start)/2)', ...
+    linspace(c4(2),gray_end(2),(stop-start)/2)', ...
+    linspace(c4(3),gray_end(3),(stop-start)/2)'];
+cmap = [gray_scale(1:start, :); cmap1 ; cmap2; gray_scale(stop:end, :)];
+end
