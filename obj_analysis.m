@@ -3,7 +3,31 @@ clear; clc; close all;
 % object parameters
 N = 812;
 N_padded = 4096;
+sg = 2;
 
+plate = 1;
+
+figure
+for row = 1:4
+    for col = 1:3
+        subplot(4,3, col+(row-1)*3)
+        plate_func = str2func( sprintf("@(row, col, N, sg) plate%02d_obj(row, col, N, sg)",plate));
+
+        obj = plate_func( row, col, N, sg );
+
+        imagesc(obj)
+        axis image off
+        colormap gray
+    end
+end
+sgtitle( sprintf("Plate %02d", plate))
+
+
+
+
+
+
+%%
 plate = 4;
 row = 4;
 col = 1;
