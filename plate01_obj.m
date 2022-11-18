@@ -5,24 +5,24 @@ function obj = plate01_obj( row, col, N, sg )
     if col == 1
         pos = [0, 0];
     elseif col == 2
-        pos = [ 30, 0;...
-               -30, 0];
+        pos = [ 45, 0;...
+               -45, 0];
     elseif col == 3
-        pos = [ 70, 0;...
-               -70, 0];
+        pos = [ 200, 0;...
+               -200, 0];
     end
 
     if row == 1
-        r = 15;
+        r = 20;
         shape_func = @() draw_circle(xx, yy, r, sg); 
     elseif row == 2
-        r = 25;
+        r = 40;
         shape_func = @() draw_circle(xx, yy, r, sg); 
     elseif row == 3
-        r = 35;
+        r = 60;
         shape_func = @() draw_circle(xx, yy, r, sg); 
     elseif row == 4
-        w = 30; h = 60;
+        w = 80; h = 160;
         shape_func = @() draw_rectangle(xx, yy, w, h, sg); 
     end
 
