@@ -1,4 +1,4 @@
-function obj = plate1_obj( row, col, N, sg )
+function obj = plate01_obj( row, col, N, sg )
     x = (-N/2):(N/2-1);
     [xx, yy] = meshgrid(x, x);
 

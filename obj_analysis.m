@@ -23,10 +23,7 @@ end
 sgtitle( sprintf("Plate %02d", plate))
 
 
-
-
-
-
+return
 %%
 plate = 4;
 row = 4;
