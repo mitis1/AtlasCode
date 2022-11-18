@@ -4,28 +4,38 @@
 % img = imresize(img, [812 812]);
 % figure;
 % imagesc(img)
+s = 30; % side length
+n = 6; % number of sides
 N = 812;
 x = (-N/2):(N/2-1);
 [xx,yy] = meshgrid( x, x );
-% circle = @(x0,y0, r, sg) -(erf((sqrt((xx-x0).^2+(yy-y0).^2)-r)/sg)-1)/2;
-% circle = @(x0,y0, r, sg) (sqrt((xx-x0).^2+(yy-y0).^2)-r);
-spacing_x = 40;
-spacing_y = 50;
-px = -N/2:spacing_x:N/2-1;
-py = -N/2:spacing_y:N/2-1;
-r = 50;
-x_range = 10;
-y_range = 15;
-angle = 20;
+r = s/(2*sin(pi/n));
+theta = linspace(0, 2*pi, n+1);
+theta(end) = [];
+sg = 5;
 
-obj1 = zeros([size(xx,1)*1.5, size(xx,2)*1.5]);
-px = -(N*1.5)/2:spacing_x:(N*1.5)/2-1;
-py = -(N*1.5)/2:spacing_y:(N*1.5)/2-1;
-for i = 1:size(px, 2)
-    for j = 1:size(py, 2)
+px = r .* cos(theta);
+py = r .* sin(theta);
 
-    end
-end
+obj = double(poly2mask(px+N/2, py+N/2, N, N));
+
+obj = imgaussfilt(obj, sg, 'FilterDomain', 'frequency');
 
 figure
-imagesc(obj1)
+imagesc(obj)
+% obj = zeros(size(xx));
+% for i = 1:n
+%     j = i + 1;
+%     if (j > size(px, 2)); j = 1; end
+%     m = (py(j)-py(i))/(px(j)-px(i));
+% %     m2 = 
+%     obj1 = -(erf( (m*(abs(xx-px(i))-s) - (abs(yy-py(i))-s))/sg) );
+%     if(i == 1); obj = obj1; continue; end
+%     obj = obj .* obj1;
+% end
+
+figure
+imagesc(obj)
+% im_triangle = (-(erf( (abs(xx)-w/2)/sg) -1)/2) .* (-(erf( (abs(yy)-h/2)/sg) -1)/2);
+% 
+% im = (-(erf( (abs(xx)-w/2)/sg) -1)/2) .* (-(erf( (abs(yy)-h/2)/sg) -1)/2);
