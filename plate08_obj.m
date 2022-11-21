@@ -1,7 +1,15 @@
-function obj = plate8_obj(N, r, sg, row, col, spacing)
+function obj = plate08_obj(row, col, N, sg)
+r = 18;
+if(col == 1)
+    spacing = 200;
+elseif(col == 2)
+    spacing = 150;
+else
+    spacing = 200;
+end
 x = -N/2:N/2-1;
 [xx, yy] = meshgrid(x, x);
-circle = @(x0,y0) -(erf((sqrt((xx-x0).^2+(yy-y0).^2)-r)/sg)-1)/2;
+circle_funct = @() draw_circle(xx, yy, r, sg);
 
 if(col == 1)
     px = [-2   -70    58   -28    16     6];
@@ -15,23 +23,26 @@ elseif(col == 3)
 end
 
 if(row == 2)
-    py = py - spacing/2;
-    py1 = py + spacing/2 + 1;
+    py1 = -py + spacing/2 + 1;
+    py2 = -py - spacing/2;
     px = [px px];
-    py = [py py1];
+    py = [py2 py1];
 elseif(row == 3)
-    py = py - spacing/2;
     py1 = py + spacing/2 + 1;
-    px = [px (-1.*px)];
-    py = [py (-1.*py1)];
+    py2 = -py - spacing/2;
+    px = [px (-px)];
+    py = [py2 (py1)];
 elseif(row == 4)
-    py = py - spacing/2;
     py1 = py + spacing/2 + 1;
+    py2 = -py - spacing/2;
     px = [px (px)];
-    py = [py (-1.*py1)];
+    py = [py2 (py1)];
+elseif(row == 1)
+    py = -py;
 end
 
+obj = zeros(size(xx));
 for i = 1:size(px, 2)
-    obj = obj + circle(px(i), py(i));
+    obj = obj + imtranslate(circle_funct(), [px(i), py(i)],"bilinear" );
 end
 end

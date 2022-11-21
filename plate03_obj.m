@@ -1,5 +1,5 @@
 function obj = plate03_obj(row,col, N, sg)
- r_circle = 25;
+    r_circle = 25;
     r_oct1 = 80;
     r_oct2 = 140;
     if(row == 1 && col == 1)
