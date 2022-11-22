@@ -12,7 +12,7 @@ if(row == 3 || (row == 1 && col == 1))
     r = 10;
 elseif(row == 1 && col == 2)
     r = 15;
-els
+else
     r = 8;
 end
 
@@ -35,7 +35,7 @@ if(row == 1 && col == 2)
 end
 if(col == 1 && (row == 2 || row == 3))
     for k = 1:size(px_img, 2)
-        obj = obj + imtranslate((circle_funct(), [px_img(k), py_img(k)], 'bilinear');
+        obj = obj + imtranslate(circle_funct(), [px_img(k), py_img(k)], 'bilinear');
     end
 end
 if(col == 2 && (row == 2 || row == 3))
