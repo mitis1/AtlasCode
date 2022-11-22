@@ -21,6 +21,8 @@ x = -N/2:N/2-1;
 circle_funct = @( ) draw_circle(xx, yy, r, sg);
 line = @(y, slope, int) y*slope + int; 
 obj = zeros(size(xx));
+px = [];
+py = [];
 
 if(row == 4 && col == 1)
     obj(xx >= -x_range & xx <= x_range ...
