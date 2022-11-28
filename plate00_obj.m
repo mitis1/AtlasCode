@@ -1,13 +1,13 @@
 function obj = plate00_obj(row, col, N, sg)
-    sz = 150;
-    r = 200;
+    sz = 80;
+    r = 40;
 
     x = -N/2:N/2-1;
     [xx, yy] = meshgrid(x,x);
     if (row == 1 && col == 1)
         obj = draw_circle(xx, yy, r, sg);
     elseif (row == 1 && col == 2)
-        obj = draw_rectangle(xx, yy, sz, sz + 200, sg);
+        obj = draw_rectangle(xx, yy, sz, sz + sz, sg);
     elseif(row == 1 && col == 3)
         obj = draw_Ngon(xx, yy, 3, sz, sg);
     elseif(row == 2 && col == 1)
@@ -50,6 +50,6 @@ function obj = plate00_obj(row, col, N, sg)
         rr = sqrt( (xx).^2+ (yy).^2*2 );
         obj = erfc( (rr-r)/sg ) / 2;
     elseif(row == 4 && col == 3)
-        obj = draw_rectangle(xx, yy, 100, 100, sg);
+        obj = draw_rectangle(xx, yy, sz, sz, sg);
     end
 end

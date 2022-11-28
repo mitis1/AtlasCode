@@ -8,6 +8,7 @@ sg = 2;
 % image parameters
 noise_mean = 0;
 noise_variance = 0.005;
+% noise_variance = 0.0001;
 
 % Crop for FFT
 zoom_factor = 8;
@@ -20,11 +21,12 @@ contrast_min_amp = 98.9;
 contrast_max_amp = 99.96;
 contrast_min2 = 98;
 contrast_max2 = 99.98;
+% contrast_max2 = 99.97;
 
 contrast_min_phase = 50;
 contrast_max_phase = 99;
 
-plates = 14;
+plates = 34;
 rows = 1:4;
 cols = 1:3;
 

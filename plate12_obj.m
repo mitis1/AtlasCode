@@ -5,15 +5,15 @@ py_img = [-39   -55   -25    -1    -2];
 px_spacing = 58;
 py_spacing = 58;
 slope = -1/4;
-x_range = 100;
-y_range = 150;
+x_range = 200;
+y_range = 300;
 tilt_angle = 45;
 if(row == 3 || (row == 1 && col == 1))
-    r = 8;
-elseif(row == 1 && col == 2)
-    r = 10;
-else
     r = 5;
+elseif(row == 1 && col == 2)
+    r = 8;
+else
+    r = 3;
 end
 
 x = -N/2:N/2-1;

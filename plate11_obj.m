@@ -1,14 +1,14 @@
 function obj = plate11_obj(row, col, N, sg)
     % col 1
     x_spacing1 = 50;
-    y_spacing1 = 32;
+    y_spacing1 = 38;
     % col 2
     x_spacing2 = 72;
     y_spacing2 = 72;
     % col 3
     tilt_angle = -15;
-    r_hex = 20;
-    r = 5;
+    r_hex = 15;
+    r = 3;
     px_hex = r_hex*cosd( (0:60:300) );
     py_hex = r_hex*sind( (0:60:300) );
     x = -N/2:N/2-1;
