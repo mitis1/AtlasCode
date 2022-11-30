@@ -26,7 +26,7 @@ contrast_max2 = 99.98;
 contrast_min_phase = 50;
 contrast_max_phase = 99;
 
-plates = 34;
+plates = 7;
 rows = 1:4;
 cols = 1:3;
 
