@@ -9,11 +9,11 @@ x_range = 200;
 y_range = 300;
 tilt_angle = 45;
 if(row == 3 || (row == 1 && col == 1))
-    r = 5;
-elseif(row == 1 && col == 2)
-    r = 8;
-else
     r = 3;
+elseif(row == 1 && col == 2)
+    r = 5;
+else
+    r = 2;
 end
 
 x = -N/2:N/2-1;

@@ -4,7 +4,7 @@ r = 15;
 obj = zeros([N N]);
 x = -N/2:N/2-1;
 [xx, yy] = meshgrid(x, x);
-circle = @() draw_circle(xx, yy, r, sg);
+circle_funct = @() draw_circle(xx, yy, r, sg);
 
 if(row == 1)
     if(col == 1)
@@ -70,7 +70,7 @@ if(row ~= 4)
     % lines and dashes
     x_space = linspace(-N/2, N/2-1, 7);
     for i = 1:size(y, 2)
-        obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 1;
+        obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 0.25;
         if(mod(i, 2) ~= 1)
             for j = 1:size(x_space,2)
                 obj(xx >= (x_space(j)-20) & xx <= (x_space(j)+20) ...
@@ -87,15 +87,16 @@ else
     b2 = -10*110:110:3*N;
     
     for i = 1:size(y, 2)
-        obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 1;
+        obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 0.25;
     end
     for j = 1:size(b1,2)
         obj(yy+m1*xx >= b1(j)-5 &...
-            yy+m1*(xx) <= b1(j)+5) = 1;
+            yy+m1*(xx) <= b1(j)+5) = 0.25;
     end
     for j = 1:size(b2,2)
         obj(yy+m2*xx >= b2(j)-4 &...
-            yy+m2*(xx) <= b2(j)+4) = 1;
+            yy+m2*(xx) <= b2(j)+4) = 0.25;
     end
 end
+
 end

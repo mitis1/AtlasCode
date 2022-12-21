@@ -7,7 +7,8 @@ sg = 2;
 
 % image parameters
 noise_mean = 0;
-noise_variance = 0.005;
+% noise_variance = 0.005;
+noise_variance = 0.001;
 
 % Crop for FFT
 zoom_factor = 8;
@@ -26,7 +27,7 @@ contrast_max_phase = 99;
 
 
 
-plate = 1;
+plate = 10;
 
 fig = [figure, figure];
 for i = 1:12
@@ -35,7 +36,6 @@ for i = 1:12
     figure( fig(2) )
     ax2(i) = subplot(4,3,i);
 end
-
 for row = 1:4
 for col = 1:3
     % Generate object

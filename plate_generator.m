@@ -12,6 +12,8 @@ noise_variance = 0.005;
 
 % Crop for FFT
 zoom_factor = 8;
+% zoom_factor = 4;
+
 crop_start = (N_padded)/2 - ((N_padded)/(zoom_factor*2)) + 1;
 crop_end = (N_padded)/2 + ((N_padded)/(zoom_factor*2));
 
@@ -26,7 +28,7 @@ contrast_max2 = 99.98;
 contrast_min_phase = 50;
 contrast_max_phase = 99;
 
-plates = 14;
+plates = [38];
 rows = 1:4;
 cols = 1:3;
 

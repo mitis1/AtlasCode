@@ -26,28 +26,18 @@ function obj = plate33_obj(row,col, N, sg)
         obj(isnan(obj)) = 1;
         obj = imgaussfilt(obj, sg, "FilterDomain", "frequency");
     elseif(row == 3 && col == 1)
-        obj = draw_Ngon(xx, yy, 6, sz, sg);
+        obj1 = draw_rectangle(xx, yy, sz, sz, sg);
+        obj = imtranslate(obj1, [sz, 0], 'bilinear');
     elseif(row == 3 && col == 2)
-        obj = draw_rectangle(xx, yy, sz, sz, sg);
+        obj1 = draw_rectangle(xx, yy, sz, sz, sg);
+        obj = imtranslate(obj1, [-sz, 0], 'bilinear');
     elseif(row == 3 && col == 3)
-        obj1 = draw_rectangle(xx, yy, sz*2, sz*2, sg);
-        obj2 = draw_rectangle(xx, yy, sz, sz, sg);
-        obj1 = (-1*obj1)+1;
-        obj = obj1 + obj2;
-        obj = -1*obj + 1;
+        obj = draw_rectangle(xx, yy, sz*2, sz, sg);
     elseif(row == 4 && col == 1)
-        obj = draw_circle(xx, yy, r*2, sg);
+        obj = draw_circle(xx, yy, r/2, sg);
     elseif(row == 4 && col == 2)
-        obj1 = draw_circle(xx, yy, r*2, sg);
-        obj2 = draw_circle(xx, yy, r, sg);
-        obj1 = (-1*obj1)+1;
-        obj = obj1 + obj2;
-        obj = -1*obj + 1;
+        obj = draw_circle(xx, yy, r, sg);
     elseif(row == 4 && col == 3)
-        obj1 = draw_rectangle(xx, yy, sz*2, sz*2, sg);
-        obj2 = draw_circle(xx, yy, r, sg);
-        obj1 = (-1*obj1)+1;
-        obj = obj1 + obj2;
-        obj = -1*obj + 1;
+        obj = draw_circle(xx, yy, r*2, sg);
     end
 end
