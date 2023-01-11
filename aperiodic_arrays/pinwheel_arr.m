@@ -1,0 +1,19 @@
+function [px,py] = pinwheel_arr(gen, N)
+    x = 0;
+    theta = 1;
+    phi = 1;
+    [px, py] = pinwheel(gen, x, theta, phi);
+    ratio = N*16/max(max(px)-min(px), max(py)-min(py));
+    px = px .* ratio;
+    py = py .* ratio;
+    px = px - (max(px)+min(px))/2;
+    py = py - (max(py)+min(py))/2;
+    px = px';
+    py = py';
+    ind2 = find(abs(py) > N/2+50);
+    ind1 = find(abs(px) > N/2+50);
+    ind = [ind1; ind2];
+    ind = unique(ind);
+    px(ind) = [];
+    py(ind) = [];
+end

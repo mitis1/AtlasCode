@@ -3,32 +3,43 @@ clear; clc; close all;
 % object parameters
 N = 812;
 N_padded = 4096;
+
+% plate 41
+% N = 812;
+% N_padded = 812;
 sg = 2;
 
 % image parameters
 noise_mean = 0;
-noise_variance = 0.005;
-% noise_variance = 0.0001;
+% original
+% noise_variance = 0.005;
+% changed
+noise_variance = 0.0001;
 
 % Crop for FFT
-zoom_factor = 8;
-% zoom_factor = 4;
+% original
+% zoom_factor = 8;
+% changed
+zoom_factor = 4;
 
 crop_start = (N_padded)/2 - ((N_padded)/(zoom_factor*2)) + 1;
 crop_end = (N_padded)/2 + ((N_padded)/(zoom_factor*2));
 
 % Contrast for FFT
-contrast_min_amp = 98.9;
-% was 99.96
-contrast_max_amp = 99.96;
+% contrast_min_amp = 98.9;
+% % was 99.96
+% contrast_max_amp = 99.96;
+% actual
 contrast_min2 = 98;
 contrast_max2 = 99.98;
-% contrast_max2 = 99.97;
+% test
+% contrast_min2 = 99.4;
+% contrast_max2 = 99.9;
 
-contrast_min_phase = 50;
-contrast_max_phase = 99;
+% contrast_min_phase = 50;
+% contrast_max_phase = 99;
 
-plates = [38];
+plates = [23];
 rows = 1:4;
 cols = 1:3;
 
@@ -55,8 +66,8 @@ for col = 1:3
     obj = plate_func( row, col, N, sg );
     
     % Display object
-    dispobj = imnoise(obj, 'gaussian', noise_mean, noise_variance);
-    dispobj = (rescale( -dispobj ) );
+%     obj = imnoise(obj, 'gaussian', noise_mean, noise_variance);
+    dispobj = (rescale( -obj ) );
     imagesc(ax1(col+(row-1)*3),  dispobj);
     colormap( ax1(col+(row-1)*3), 'gray')
 
@@ -64,11 +75,16 @@ for col = 1:3
     obj = padarray(obj, [(N_padded-N)/2, (N_padded-N)/2], 'both');
     obj = imnoise(obj, 'gaussian', noise_mean, noise_variance);
     obj_fft = fftshift(fft2(ifftshift(obj)));
+
+% for plate 41
+%     obj_fft = fftshift(fft2(ifftshift(obj)));
     
     obj_amp = abs(obj_fft);
     obj_amp = rescale(obj_amp);
     val_range = prctile(obj_amp, [contrast_min2 contrast_max2], 'all');
-    obj_amp = imadjust(obj_amp, [val_range(1) val_range(2)], [0 1]);
+    if(val_range(1) ~= val_range(2) || plates(1) ~= 41)
+        obj_amp = imadjust(obj_amp, [val_range(1) val_range(2)], [0 1]);
+    end
     obj_amp = obj_amp(crop_start:crop_end, crop_start:crop_end);
     
     obj_pha = angle(obj_fft) + pi/2;
