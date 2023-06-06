@@ -4,7 +4,7 @@ function cmap = amp_colormap(N,start, stop)
     r = [r, flip(r)];
     % 20, 40, 60, 80
     theta = ones([1 (stop-start)]);
-    theta = theta .* (7*pi/4);
+    theta = theta .* (pi/2);
     [x, y] = pol2cart(theta, r);
     start_mat = zeros([1 start]);
     end_mat = zeros([1 (N-stop)]);

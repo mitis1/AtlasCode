@@ -211,7 +211,7 @@ elseif(row == 4 && col == 2)
         obj(obj>1) = obj(obj>1)/2;
     end
 elseif(row == 4 && col == 3)
-    t = -250:3:250;
+    t = -250:2:250;
     px = r_helix*cosd(a*t);
     py = r_helix*sind(a*t);
     z = a*t;

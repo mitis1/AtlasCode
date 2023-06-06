@@ -66,37 +66,37 @@ for i = 1:size(px, 2)
     obj = obj + imtranslate(circle_funct(), [px(i), py(i)], 'bilinear');
 end
 
-if(row ~= 4)
-    % lines and dashes
-    x_space = linspace(-N/2, N/2-1, 7);
-    for i = 1:size(y, 2)
-        obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 0.25;
-        if(mod(i, 2) ~= 1)
-            for j = 1:size(x_space,2)
-                obj(xx >= (x_space(j)-20) & xx <= (x_space(j)+20) ...
-                    & yy >= (y(i)-3) & yy <= (y(i)+3)) = 0;
-            end
-        end
-    end
-else
-    % line and into paralleogram
-    y = -N/2:(812/6):N/2-1;
-    m1 = 6;
-    m2 = 1.2;
-    b1 = -10*542:542:4*N;
-    b2 = -10*110:110:3*N;
-    
-    for i = 1:size(y, 2)
-        obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 0.25;
-    end
-    for j = 1:size(b1,2)
-        obj(yy+m1*xx >= b1(j)-5 &...
-            yy+m1*(xx) <= b1(j)+5) = 0.25;
-    end
-    for j = 1:size(b2,2)
-        obj(yy+m2*xx >= b2(j)-4 &...
-            yy+m2*(xx) <= b2(j)+4) = 0.25;
-    end
-end
+% if(row ~= 4)
+%     % lines and dashes
+%     x_space = linspace(-N/2, N/2-1, 7);
+%     for i = 1:size(y, 2)
+%         obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 0.25;
+%         if(mod(i, 2) ~= 1)
+%             for j = 1:size(x_space,2)
+%                 obj(xx >= (x_space(j)-20) & xx <= (x_space(j)+20) ...
+%                     & yy >= (y(i)-3) & yy <= (y(i)+3)) = 0;
+%             end
+%         end
+%     end
+% else
+%     % line and into paralleogram
+%     y = -N/2:(812/6):N/2-1;
+%     m1 = 6;
+%     m2 = 1.2;
+%     b1 = -10*542:542:4*N;
+%     b2 = -10*110:110:3*N;
+%     
+%     for i = 1:size(y, 2)
+%         obj(yy >= (y(i)-3) & yy <= (y(i)+3)) = 0.25;
+%     end
+%     for j = 1:size(b1,2)
+%         obj(yy+m1*xx >= b1(j)-5 &...
+%             yy+m1*(xx) <= b1(j)+5) = 0.25;
+%     end
+%     for j = 1:size(b2,2)
+%         obj(yy+m2*xx >= b2(j)-4 &...
+%             yy+m2*(xx) <= b2(j)+4) = 0.25;
+%     end
+% end
 
 end

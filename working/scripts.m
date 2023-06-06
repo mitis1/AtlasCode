@@ -1,5 +1,5 @@
 %% Vogel spiral
-num = 1000;
+num = 500;
 theta_init = pi*(3-sqrt(5));
 i = 1:num;
 t = theta_init*i; 

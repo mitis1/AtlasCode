@@ -35,16 +35,21 @@ elseif(row == 3 && col == 2)
 %     function [px,py] = ulam_spiral(sz,N)
     [px, py] = ulam_spiral(sz, N);
 elseif(row == 3 && col == 3)
-    coords = convert_2D_array_to_coordinates(convert_1D_binary_to_2D_array(generate_1D_paperfolding_array(gen2,start1)'),scat_const);
-
-    px = coords(:,1);
-    py = coords(:,2);
+    num = 500;
+    theta_init = pi*(3-sqrt(5));
+    i = 1:num;
+    t = theta_init*i; 
+    r = sqrt(i/num);
+    px = r.*cos(t); 
+    py = r.*sin(t);
     
     ratio = N/max(max(px)-min(px), max(py)-min(py));
     px = px .* ratio;
     py = py .* ratio;
     px = px - (max(px)+min(px))/2;
     py = py - (max(py)+min(py))/2;
+    px = px';
+    py = py';
 elseif(row == 4 && col == 1)
     % danzer array
     [px, py] = danzer_arr(N);

@@ -1,58 +1,36 @@
-% clear;
-% clc;
-% img = imread('img.png');
-% img = imresize(img, [812 812]);
-% figure;
-% imagesc(img)
-
-
 N = 812;
-arr_sz = 50;
 N_padded = 4096;
-sg = 2;
+close all;
 
+[px,py] = hilbert(5);
 
+ratio = N/(max(py)-min(py));
+px = px .* ratio;
+py = py .* ratio;
+px = px - (max(px)+min(px))/2;
+py = py - (max(py)+min(py))/2;
+
+obj = zeros([N N]);
 x = -N/2:N/2-1;
-[xx,yy] = meshgrid(x,x);
-sg = 2;
-w = 1;
-h = 4;
-r = 2;
-obj_funct = @() soft_rectangle(xx, yy, w, h, sg);
-obj_funct2 = @() soft_circle(xx, yy, r, sg);
-a = 4.5;
-r = 50;
+[xx, yy] = meshgrid(x, x);
+line_width = 3;
+sg = 5;
+obj_funct = @(w, h) draw_rectangle(xx, yy, w, h, sg);
 
-t = -250:.1:250;
-px = r*cosd(a*t);
-py = r*sind(a*t);
-z = a*t;
-x_rot = rotx(82);
-
-val = x_rot * [px;py;z];
-
-px = val(1,:);
-py = val(2,:);
-z = val(3,:);
-
-figure(1)
-scatter(z, px, 'filled');
-
-
-
-%%
-obj = zeros(size(xx));
-for i = 1:size(px,2)
-    obj = obj + imtranslate(obj_funct2(), [z(i), py(i)], 'bilinear');
+for i = 2:size(px,2)
+    if(px(i) == px(i-1))
+        py_temp = (py(i)+py(i-1))/2;
+        h = abs(py(i) - py(i-1));
+        obj = obj + imtranslate(obj_funct(line_width, h), [px(i), py_temp], 'bilinear');
+    else
+        px_temp = (px(i)+px(i-1))/2;
+        w = abs(px(i) - px(i-1));
+        obj = obj + imtranslate(obj_funct(w, line_width), [px_temp, py(i)], 'bilinear');
+    end
 end
 
-figure
-imagesc(obj)
 
 
-
-
-return
 %%
 % Display object
 
@@ -74,6 +52,8 @@ contrast_max_amp = 100;
 contrast_min2 = 99.7;
 contrast_max2 = 99.98;
 % contrast_max2 = 99.97;
+contrast_min = 98;
+contrast_max = 99.9;
 
 
 % dispobj = imnoise(obj, 'gaussian', noise_mean, noise_variance);
@@ -88,10 +68,12 @@ axis off
 hold off;
 
 % Fourier Transform object
-obj = padarray(obj, [(N_padded-N)/2, (N_padded-N)/2], 'both');
-% obj = imnoise(obj, 'gaussian', noise_mean, noise_variance);
-obj_fft = fftshift(fft2(ifftshift(obj)));
-
+x = -N/2:N/2-1;
+[xx, yy] = meshgrid(x, x);
+obj1 = obj .* draw_circle(xx, yy, 400, 10);
+obj1 = padarray(obj1, [(N_padded-N)/2, (N_padded-N)/2], 'both');
+obj1 = imnoise(obj1, 'gaussian', noise_mean, noise_variance);
+obj_fft = fftshift(fft2(ifftshift(obj1)));
 obj_amp = abs(obj_fft);
 obj_amp = rescale(obj_amp);
 val_range = prctile(obj_amp, [contrast_min2 contrast_max2], 'all');
@@ -113,4 +95,5 @@ hold on;
 imagesc( pha_rgb);
 axis square
 axis off
-hold off;
+hold off
+

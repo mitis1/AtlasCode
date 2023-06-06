@@ -1,6 +1,6 @@
 function obj = plate10_obj(row, col, N, sg)
     r = 20;
-    spacing = 40;
+    spacing = 60;
     if(row == 1)
         rows = 1;
     elseif(row == 2)
@@ -24,8 +24,8 @@ function obj = plate10_obj(row, col, N, sg)
     px = [];
     py = [];
     x_offset = ((cols-1)/2)*(2*r + 1 + spacing);
-    y_offset = (rows/2)*(spacing + 2*r + 1) - (spacing/2);
     circle_spacing = r*2 + 1 + spacing;
+    y_offset = (rows/2)*(spacing + 2*r + 1) - circle_spacing/2;
     y_idx = -y_offset;
     x_idx = -x_offset;
     inc = 1;
@@ -56,8 +56,21 @@ function obj = plate10_obj(row, col, N, sg)
     
     obj = zeros([N N]);
     for i = 1:size(px, 2)
-        for(j = 1:size(py,2))
-            obj = obj + imtranslate(circle_funct(), [px(i), py(j)], 'bilinear');
-        end
+%         if(i == 2 || i == 5)
+%             continue;
+%         end
+%         for(j = 1:size(py,2))
+% %             if(row == 1 && col == 2)
+% %                 if(i == 2)
+% %                     continue;
+% %                 end
+% %             end
+%             if(row == 2 && col == 2)
+%                 if(i == 2)
+%                     continue;
+%                 end
+%             end
+            obj = obj + imtranslate(circle_funct(), [px(i), py(i)], 'bilinear');
+%         end
     end
 end

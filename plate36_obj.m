@@ -7,8 +7,12 @@ function obj = plate36_obj(row, col, N, sg)
     sz = N/7;
     x = -N/2:N/2-1;
     [xx,yy] = meshgrid(x, x);
-    px1 = -N/2+spacing/2:spacing:N/2-1;
-    [px, py] = meshgrid(px1, px1);
+%     px1 = -N/2+spacing/2:spacing:N/2-1;
+%     [px, py] = meshgrid(px1, px1);
+%     if(col ~= 2)
+%         obj = zeros(size(xx));
+%         return;
+%     end
 
     if(row == 2 || row == 4)
         if(col == 1)
@@ -21,16 +25,16 @@ function obj = plate36_obj(row, col, N, sg)
     else
         obj_funct = @() draw_circle(xx, yy, r, sg);
     end
-    if(row == 1)
-        if(col == 1)
-            obj = draw_circle(xx, yy, r*10, sg);
-        elseif(col == 2)
-            obj = draw_rectangle(xx, yy, w*10, w*10, sg);
-        else
-            obj = draw_Ngon(xx, yy, 3, w*10, sg);
-        end
-    return
-    end
+%     if(row == 1)
+%         if(col == 1)
+%             obj = draw_circle(xx, yy, r*10, sg);
+%         elseif(col == 2)
+%             obj = draw_rectangle(xx, yy, w*10, w*10, sg);
+%         else
+%             obj = draw_Ngon(xx, yy, 3, w*10, sg);
+%         end
+%     return
+%     end
 
     if(col == 1)
         w = (N)/6;
@@ -76,15 +80,11 @@ function obj = plate36_obj(row, col, N, sg)
             end
         end
     end
-    if(row == 3)
+    if(row == 2)
         obj = mask;
         return
     end
-    if(row == 2)
-         px1 = -N/2+spacing2/2:spacing2:N/2-1;
-    else
-        px1 = -N/2+spacing/2:spacing:N/2-1;
-    end
+    px1 = -N/2+spacing/2:spacing:N/2-1;
     [px, py] = meshgrid(px1, px1);
     obj = zeros(size(xx));
     for i = 1:size(px,1)
@@ -94,6 +94,9 @@ function obj = plate36_obj(row, col, N, sg)
     end
     
     if(row == 4)
+        obj = obj .* mask;
+    elseif(row == 3)
+        mask = (-1*mask)+1;
         obj = obj .* mask;
     end
 end

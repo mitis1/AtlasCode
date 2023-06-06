@@ -1,8 +1,8 @@
 function obj = plate19_obj(row, col, N, sg)
 x = -N/2:N/2-1;
 [xx, yy] = meshgrid(x, x);
-r_circle = 3;
-spacing = 14;
+r_circle = 7;
+spacing = 28;
 circle_funct = @( ) draw_circle(xx, yy, r_circle, sg);
 x_a = -N/2:spacing:N/2;
 x_b = x_a + spacing/3;
